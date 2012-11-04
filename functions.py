@@ -25,6 +25,8 @@ df_dy = [ lambda x,y: x-1.0,
           lambda x,y: x,
           lambda x,y: 1.0-x,
           lambda x,y: x*x-x,
+          lambda x,y: x-2*x*y,
+          lambda x,y: x-x*x,
           lambda x,y: 1.0-x-2.0*y*(1.0-x),
           lambda x,y: x-x*x-2.0*y*(x-x*x) ]
 
