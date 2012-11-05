@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import math
+
 class Mes:
     def __init__(self, bitmap, n):
         self.bitmap = bitmap
