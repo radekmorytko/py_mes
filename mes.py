@@ -23,7 +23,7 @@ class Mes:
         dx = x - math.floor(x)
         dy = y - math.floor(y)
         
-        return a*(1.0-dx)*(1.0-dy) + b*dx*(1.0-dy) + c*dx*dy + d*(1-dx)*dy
+        return a*(1.0-dx)*(1.0-dy) + b*dx*(1.0-dy) + c*dx*dy + d*(1.0-dx)*dy
     
     def bitmap_derivative_x(self, x, y):
         a = self.matrix[math.floor(x)  , math.floor(y)  ]
