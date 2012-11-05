@@ -52,4 +52,4 @@ class Element:
         pass
 
     def u(self, i, j):
-        return reduce(lambda x,y: x+y[0](i,j)*y[1], zip(functions, self.coeff), 0)
+        return reduce(lambda x,y: x+y[0](i,j)*y[1], zip(functions, self.coeff), 0.0)
