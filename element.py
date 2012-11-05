@@ -9,7 +9,7 @@ class Element:
         self.i, self.j = i, j
         self.mes = mes
         self.a, self.b, self.c, self.d = mes.ij_to_abcd(i,j)
-        self.coeff = [ None ]*9
+        self.coeff = [ 0 ]*9
     
     def calculate_a(self):
         a,b,c,d = self.a, self.b, self.c, self.d
@@ -42,3 +42,5 @@ class Element:
     def calculate_c(self):
         pass
 
+    def u(self, i, j):
+        return reduce(lambda x,y: x+y[0](i,j)*y[1], zip(functions, self.coeff), 0)

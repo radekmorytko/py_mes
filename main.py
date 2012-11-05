@@ -3,7 +3,7 @@
 from mes import Mes
 from bmp_loader import Bitmap
 from element import Element
-
+from functions import functions
 import sys
 
 if __name__ == '__main__':
@@ -20,3 +20,5 @@ if __name__ == '__main__':
             element.calculate_a()
             element.calculate_b()
             element.calculate_c()
+            print element.u(0.5, 0.5)
+            print mes.bitmap_value(element.i*mes.pixels_per_x, element.j*mes.pixels_per_y)
