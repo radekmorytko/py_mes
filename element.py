@@ -13,10 +13,10 @@ class Element:
     
     def calculate_a(self):
         a,b,c,d = self.a, self.b, self.c, self.d
-        
+        print a,b,c,d
         self.coeff[0] = self.mes.bitmap_value(a,c)
         self.coeff[1] = self.mes.bitmap_value(b,c)
-        self.coeff[2] = self.mes.bitmap_value(c,d)
+        self.coeff[2] = self.mes.bitmap_value(b,d)
         self.coeff[3] = self.mes.bitmap_value(a,d)
         
     

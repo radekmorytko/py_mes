@@ -28,7 +28,7 @@ if __name__ == '__main__':
 #            print mes.bitmap_value(element.i*mes.pixels_per_x, element.j*mes.pixels_per_y)
             for x in xrange(0,16):
                 for y in xrange(0, 16):
-                    new_bitmap[element.i*16+x, element.j*16+y] = element.u(y/16.0, x/16.0)
+                    new_bitmap[element.i*16+x, element.j*16+y] = element.u(x/16.0, y/16.0)
     plt.axis('off')
     plt.imshow(new_bitmap, cmap=plt.cm.gray)
     plt.show()
