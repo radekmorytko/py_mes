@@ -31,12 +31,23 @@ class Element:
         g6 = lambda y: shift_me_baby(df_dy[5], a, b, c, d)(b, y)
         g7 = lambda x: shift_me_baby(df_dx[6], a, b, c, d)(x, d)
         g8 = lambda y: shift_me_baby(df_dy[7], a, b, c, d)(a, y)
-
-
-        self.coeff[4] = quad(f5, a, b, vec_func=False, maxiter=100)[0]/quad(g5, a, b, vec_func=False, maxiter=100)[0]
-        self.coeff[5] = quad(f6, c, d, vec_func=False, maxiter=100)[0]/quad(g6, c, d, vec_func=False, maxiter=100)[0]
-        self.coeff[6] = quad(f7, a, b, vec_func=False, maxiter=100)[0]/quad(g7, a, b, vec_func=False, maxiter=100)[0]
-        self.coeff[7] = quad(f8, c, d, vec_func=False, maxiter=100)[0]/quad(g8, c, d, vec_func=False, maxiter=100)[0]
+        
+        q5u = quad(f5, a, b, vec_func=False, maxiter=100)[0]
+        q6u = quad(f6, c, d, vec_func=False, maxiter=100)[0]
+        q7u = quad(f7, a, b, vec_func=False, maxiter=100)[0]
+        q8u = quad(f8, c, d, vec_func=False, maxiter=100)[0]
+        
+        q5l = quad(g5, a, b, vec_func=False, maxiter=100)[0]
+        q6l = quad(g6, c, d, vec_func=False, maxiter=100)[0]
+        q7l = quad(g7, a, b, vec_func=False, maxiter=100)[0]
+        q8l = quad(g8, c, d, vec_func=False, maxiter=100)[0]
+        
+        print [q5u, q6u, q7u, q8u, q5l, q6l, q7l, q8l]
+        
+        self.coeff[4] = q5u/q5l
+        self.coeff[5] = q6u/q6l
+        self.coeff[6] = q7u/q7l
+        self.coeff[7] = q8u/q8l
 
     
     def calculate_c(self):
