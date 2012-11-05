@@ -8,10 +8,10 @@ class Mes:
         self.pixels_per_y = (bitmap.height-1) / (n+1)
         self.matrix = bitmap.as_matrix()
     
-    '''
-        returns bitmap value for real coordinates of pixels (calculated as weighted sum of neighbors) using bilinear interpolation
-    '''
     def bitmap_value(self, x, y):
+        '''
+        returns bitmap value for real coordinates of pixels (calculated as weighted sum of neighbors) using bilinear interpolation
+        '''
         
         a = self.matrix[math.floor(x)  , math.floor(y)  ]
         b = self.matrix[math.floor(x)+1, math.floor(y)  ]
@@ -37,5 +37,5 @@ class Mes:
         
     
     def ij_to_abcd(self, i,j):
-        [self.pixels_per_x*i,self.pixels_per_x*(i+1),self.pixels_per_y*j,self.pixels_per_y*(j+1)]
+        return [self.pixels_per_x*i,self.pixels_per_x*(i+1),self.pixels_per_y*j,self.pixels_per_y*(j+1)]
         
