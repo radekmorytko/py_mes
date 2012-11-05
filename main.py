@@ -19,4 +19,4 @@ if __name__ == '__main__':
         for element in row:
             element.calculate_a()
             element.calculate_b()
-        
+            element.calculate_c()
