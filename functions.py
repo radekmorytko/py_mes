@@ -15,7 +15,7 @@ df_dx = [ lambda x,y: y-1.0,
           lambda x,y: y,
           lambda x,y: -y,
           lambda x,y: 1.0-y-2*x*(1.0-y),
-          lambda x,y: (1.0-y)*y,
+          lambda x,y: y-y*y,
           lambda x,y: y-2*x*y,
           lambda x,y: y*y-y,
           lambda x,y: y-y*y-2*x*(y-y*y) ]
