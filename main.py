@@ -5,13 +5,17 @@ from bmp_loader import Bitmap
 from element import Element
 from functions import functions
 import sys
+import numpy
+import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
     assert len(sys.argv) == 3, 'Usage: {0} <n> <path to bitmap>'.format(sys.argv[0])     
     n = int(sys.argv[1])
     bmp_file = sys.argv[2]
     bitmap = Bitmap(bmp_file)
-    
+
+    new_bitmap = numpy.matrix(numpy.zeros((n*16,n*16)))
+
     mes = Mes(bitmap, n)
     elements = [ [ Element(mes,i,j) for i in xrange(0,n) ] for j in xrange(0,n) ]
     
@@ -20,5 +24,12 @@ if __name__ == '__main__':
             element.calculate_a()
             element.calculate_b()
             element.calculate_c()
-            print element.u(0.5, 0.5)
-            print mes.bitmap_value(element.i*mes.pixels_per_x, element.j*mes.pixels_per_y)
+#            print element.u(0.5, 0.5)
+#            print mes.bitmap_value(element.i*mes.pixels_per_x, element.j*mes.pixels_per_y)
+            for x in xrange(0,16):
+                for y in xrange(0, 16):
+                    new_bitmap[element.i*16+x, element.j*16+y] = element.u(y/16.0, x/16.0)
+    plt.axis('off')
+    plt.imshow(new_bitmap, cmap=plt.cm.gray)
+    plt.show()
+    raw_input()

@@ -27,10 +27,10 @@ class Element:
         f7 = lambda x: (self.mes.bitmap_derivative_x(x, d) - (self.coeff[0] * shift_me_baby(df_dx[0], a, b, c, d)(x, d) + self.coeff[1] * shift_me_baby(df_dx[1], a, b, c, d)(x, d) + self.coeff[2] * shift_me_baby(df_dx[2], a, b, c, d)(x, d) + self.coeff[3] * shift_me_baby(df_dx[3], a, b, c, d)(x, d))*shift_me_baby(functions[6], a, b, c, d)(x, d))
         f8 = lambda y: (self.mes.bitmap_derivative_y(a, y) - (self.coeff[0] * shift_me_baby(df_dy[0], a, b, c ,d)(a, y) + self.coeff[1] * shift_me_baby(df_dy[1], a, b, c, d)(a, y) + self.coeff[2] * shift_me_baby(df_dy[2], a, b, c, d)(a, y) + self.coeff[3] * shift_me_baby(df_dy[3], a, b, c, d)(a, y)) * shift_me_baby(functions[7], a, b, c, d)(a, y))
 
-        g5 = lambda x: shift_me_baby(df_dx[4], a, b, c, d)(x, c)
-        g6 = lambda y: shift_me_baby(df_dy[5], a, b, c, d)(b, y)
-        g7 = lambda x: shift_me_baby(df_dx[6], a, b, c, d)(x, d)
-        g8 = lambda y: shift_me_baby(df_dy[7], a, b, c, d)(a, y)
+        g5 = lambda x: shift_me_baby(df_dx[4], a, b, c, d)(x, c)**2
+        g6 = lambda y: shift_me_baby(df_dy[5], a, b, c, d)(b, y)**2
+        g7 = lambda x: shift_me_baby(df_dx[6], a, b, c, d)(x, d)**2
+        g8 = lambda y: shift_me_baby(df_dy[7], a, b, c, d)(a, y)**2
         
         q5u = quad(f5, a, b, vec_func=False, maxiter=100)[0]
         q6u = quad(f6, c, d, vec_func=False, maxiter=100)[0]
@@ -41,8 +41,6 @@ class Element:
         q6l = quad(g6, c, d, vec_func=False, maxiter=100)[0]
         q7l = quad(g7, a, b, vec_func=False, maxiter=100)[0]
         q8l = quad(g8, c, d, vec_func=False, maxiter=100)[0]
-        
-        print [q5u, q6u, q7u, q8u, q5l, q6l, q7l, q8l]
         
         self.coeff[4] = q5u/q5l
         self.coeff[5] = q6u/q6l
