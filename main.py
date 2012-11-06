@@ -7,6 +7,9 @@ from functions import functions
 import sys
 import numpy
 import matplotlib.pyplot as plt
+import math
+
+import Image
 
 if __name__ == '__main__':
     assert len(sys.argv) == 3, 'Usage: {0} <n> <path to bitmap>'.format(sys.argv[0])     
@@ -14,11 +17,18 @@ if __name__ == '__main__':
     bmp_file = sys.argv[2]
     bitmap = Bitmap(bmp_file)
 
-    new_bitmap = numpy.matrix(numpy.zeros((n*64,n*64)))
+    ratio = float(bitmap.height)/bitmap.width;
+    print ratio
+    new_bitmap = numpy.matrix(numpy.zeros((64*n,int(64*ratio)*n)))
 
     mes = Mes(bitmap, n)
-    elements = [ [ Element(mes,i,j,10) for i in xrange(0,n) ] for j in xrange(0,n) ]
+    elements = [ [ Element(mes,i,j,2) for i in xrange(0,n) ] for j in xrange(0,n) ]
     i = 0
+    
+    im = Image.new('L',(64*n,int(64*ratio*n)))
+    pix = im.load()
+    
+    
     for row in elements:
         for element in row:
             i += 1
@@ -29,9 +39,10 @@ if __name__ == '__main__':
 #            print element.u(0.5, 0.5)
 #            print mes.bitmap_value(element.i*mes.pixels_per_x, element.j*mes.pixels_per_y)
             for x in xrange(0,64):
-                for y in xrange(0, 64):
-                    new_bitmap[element.j*64+y, element.i*64+x] = element.u(x/64.0, y/64.0)
-    plt.axis('off')
-    plt.imshow(new_bitmap, cmap=plt.cm.gray)
-    plt.show()
+                for y in xrange(0, int(64*ratio)):
+                    pix[element.i*64+x, element.j*int(64*ratio)+y] = element.u(x/64.0, y/(64.0*ratio))
+    # plt.axis('off')
+    # plt.imshow(new_bitmap, cmap=plt.cm.gray)
+    # plt.show()
+    im.save('output.png')
 #    raw_input()

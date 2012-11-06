@@ -6,19 +6,20 @@ class Mes:
     def __init__(self, bitmap, n):
         self.bitmap = bitmap
         self.n = n
-        self.pixels_per_x = (bitmap.width-1)  / (n+1)
-        self.pixels_per_y = (bitmap.height-1) / (n+1)
+        self.pixels_per_x = (bitmap.width  - 1.0) / float(n)
+        self.pixels_per_y = (bitmap.height - 1.0) / float(n)
         self.matrix = bitmap.as_matrix()
     
     def bitmap_value(self, x, y):
         '''
         returns bitmap value for real coordinates of pixels (calculated as weighted sum of neighbors) using bilinear interpolation
         '''
+        print x,y
         
         a = self.matrix[math.floor(x)  , math.floor(y)  ]
-        b = self.matrix[math.floor(x)+1, math.floor(y)  ]
-        c = self.matrix[math.floor(x)+1, math.floor(y)+1]
-        d = self.matrix[math.floor(x)  , math.floor(y)+1]
+        b = self.matrix[min(math.floor(x)+1, self.bitmap.width-1), math.floor(y)  ]
+        c = self.matrix[min(math.floor(x)+1, self.bitmap.width-1), min(math.floor(y)+1, self.bitmap.height-1)]
+        d = self.matrix[math.floor(x)  , min(math.floor(y)+1, self.bitmap.height-1)]
         
         dx = x - math.floor(x)
         dy = y - math.floor(y)
