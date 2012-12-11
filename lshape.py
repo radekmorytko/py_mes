@@ -33,9 +33,9 @@ class Element:
 
     def f(self, i, j):
         if i == 0.0 and j >= 0.5:
-            return 1.0-self.u(i,j)
+            return 1.0#-self.u(i,j)
         elif j == 1.0 and i >= 0.5:
-            return -1.0 - self.u(i,j)
+            return -1.0# - self.u(i,j)
         else:
             return 0.0
 
@@ -87,35 +87,39 @@ if __name__ == '__main__':
         print t
         for row in elements:
             for element in row:
-                element.coeff[0] = bitmap(elements, 
-                                          element.xrange[0], 
-                                          element.yrange[0], 
-                                          delta,
-                                          1.0/n)
+                element.coeff[0] = bitmap(elements, element.xrange[0], element.yrange[0], delta, 1.0/n)
+                element.coeff[1] = bitmap(elements, element.xrange[0], element.yrange[1], delta, 1.0/n)
+                element.coeff[2] = bitmap(elements, element.xrange[1], element.yrange[1], delta, 1.0/n)
+                element.coeff[3] = bitmap(elements, element.xrange[1], element.yrange[0], delta, 1.0/n)
 
                 f5 = lambda x: bitmap(elements, x, element.yrange[0], delta, dn) - element.coeff[0] * element.functions[0](x, element.yrange[0])  - element.coeff[1] * element.functions[1](x, element.yrange[0]) - element.coeff[2] * element.functions[2](x, element.yrange[0]) - element.coeff[3] * element.functions[3](x, element.yrange[0])                
-                g5 = lambda x: elemet.functions[5]**2
+                g5 = lambda x: element.functions[5](x, element.yrange[0])**2
 
                 f6 = lambda x: bitmap(elements, element.xrange[1], x, delta, dn) - element.coeff[0] * element.functions[0](element.xrange[1], x)  - element.coeff[1] * element.functions[1](element.xrange[1], x)  - element.coeff[2] * element.functions[2](element.xrange[1], x)  - element.coeff[3] * element.functions[3](element.xrange[1], x) 
-                g6 = lambda x: elemet.functions[6]**2
+                g6 = lambda x: element.functions[6](element.xrange[1], x)**2
 
                 f7 = lambda x: bitmap(elements, x, element.yrange[1], delta, dn) - element.coeff[0] * element.functions[0](x, element.yrange[1])  - element.coeff[1] * element.functions[1](x, element.yrange[0]) - element.coeff[2] * element.functions[2](x, element.yrange[0]) - element.coeff[3] * element.functions[3](x, element.yrange[0])                
-                g7 = lambda x: elemet.functions[7]**2
+                g7 = lambda x: element.functions[7](x, element.yrange[0])**2
 
                 f8 = lambda x: bitmap(elements, element.xrange[0], x, delta, dn) - element.coeff[0] * element.functions[0](element.xrange[0], x)  - element.coeff[1] * element.functions[1](element.xrange[0], x)  - element.coeff[2] * element.functions[2](element.xrange[0], x)  - element.coeff[3] * element.functions[3](element.xrange[0], x) 
-                g8 = lambda x: elemet.functions[8]**2
+                g8 = lambda x: element.functions[8](element.xrange[0], x)**2
 
                 q5u = quad(f5, element.xrange[0], element.xrange[1], vec_func=False, maxiter=10)[0]
-                q5l = quad(f5, element.xrange[0], element.xrange[1], vec_func=False, maxiter=10)[0]
+                q5l = quad(g5, element.xrange[0], element.xrange[1], vec_func=False, maxiter=10)[0]
                                                                                              
                 q6u = quad(f6, element.yrange[0], element.yrange[1], vec_func=False, maxiter=10)[0]
-                q6l = quad(f6, element.yrange[0], element.yrange[1], vec_func=False, maxiter=10)[0]
+                q6l = quad(g6, element.yrange[0], element.yrange[1], vec_func=False, maxiter=10)[0]
                                                                                              
                 q7u = quad(f7, element.xrange[0], element.xrange[1], vec_func=False, maxiter=10)[0]
-                q7l = quad(f7, element.xrange[0], element.xrange[1], vec_func=False, maxiter=10)[0]
+                q7l = quad(g7, element.xrange[0], element.xrange[1], vec_func=False, maxiter=10)[0]
                                                                                              
                 q8u = quad(f8, element.yrange[0], element.yrange[1], vec_func=False, maxiter=10)[0]
-                q8l = quad(f8, element.yrange[0], element.yrange[1], vec_func=False, maxiter=10)[0]
+                q8l = quad(g8, element.yrange[0], element.yrange[1], vec_func=False, maxiter=10)[0]
+                
+                element.coeff[5] = q5u/q5l 
+                element.coeff[6] = q6u/q6l 
+                element.coeff[7] = q7u/q7l 
+                element.coeff[8] = q8u/q8l 
 
     im = Image.new('L',(512,512))
     pix = im.load()
