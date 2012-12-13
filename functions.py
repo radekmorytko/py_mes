@@ -30,6 +30,26 @@ df_dy = [ lambda x,y: x-1.0,
           lambda x,y: 1.0-x-2.0*y*(1.0-x),
           lambda x,y: x-x*x-2.0*y*(x-x*x) ]
 
+d2f_dx = [ lambda x,y: 0.0,
+          lambda x,y: 0.0,
+          lambda x,y: 0.0,
+          lambda x,y: 0.0,
+          lambda x,y: -2*(1.0-y),
+          lambda x,y: 0.0,
+          lambda x,y: -2*y,
+          lambda x,y: 0.0,
+          lambda x,y: -2*(y-y*y) ]
+
+d2f_dy = [ lambda x,y: 0.0,
+          lambda x,y: 0.0,
+          lambda x,y: 0.0,
+          lambda x,y: 0.0,
+          lambda x,y: 0.0,
+          lambda x,y: -2*x,
+          lambda x,y: 0.0,
+          lambda x,y: -2.0*(1.0-x),
+          lambda x,y: -2.0*(x-x*x) ]
+
 def shift_me_baby(f, a, b, c, d):
     return lambda x,y: f((x-a)/(b-a), (y-c)/(d-c))
         
